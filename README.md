@@ -1,4 +1,4 @@
-# Javascript-MERN-Stack
+# PHP Laravel
 ![alt](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxPTViRjJVarWMNfNKWBJcYDnQXuZtmGn94WX_q5CPH5OsinZln3fWkSAwvoXq4zEriXs&usqp=CAU)
 
 ## Class 01
