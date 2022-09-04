@@ -23,6 +23,14 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/blogList', [App\Http\Controllers\BlogController::class, 'list']);
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/about-us', [App\Http\Controllers\HomeController::class, 'aboutUs']);
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+// Route::get('/about-us', [App\Http\Controllers\HomeController::class, 'aboutUs']);
 
+// *****************************************
+
+
+Route::get('/', [App\Http\Controllers\Admin\MasterController::class, 'dashboard']);
+// USER ROUTE
+Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index']);
+Route::get('users/create', [App\Http\Controllers\Admin\UserController::class, 'create']);
+Route::post('users/store', [App\Http\Controllers\Admin\UserController::class, 'store']);
