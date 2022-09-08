@@ -16,6 +16,7 @@
 	<link href="{{ asset('admin/assets/css/minified/colors.min.css') }}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 
 <body>
@@ -383,5 +384,9 @@
 	<script type="text/javascript" src="{{ asset('admin/assets/js/core/app.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin/assets/js/pages/datatables_basic.js') }}"></script>
 	<!-- /theme JS files -->
+
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
 </body>
 </html>

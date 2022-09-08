@@ -34,3 +34,8 @@ Route::get('/', [App\Http\Controllers\Admin\MasterController::class, 'dashboard'
 Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index']);
 Route::get('users/create', [App\Http\Controllers\Admin\UserController::class, 'create']);
 Route::post('users/store', [App\Http\Controllers\Admin\UserController::class, 'store']);
+
+Route::get('users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit']);
+Route::put('users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'update']);
+
+Route::delete('users/destroy/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy']);
