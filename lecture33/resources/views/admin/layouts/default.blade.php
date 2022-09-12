@@ -344,6 +344,8 @@
 								{{-- <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li> --}}
 								<li class="active"><a href="{{ url('/') }}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
 								<li><a href="{{ url('users') }}"><i class="icon-user-plus"></i> <span>Users</span></a></li>
+								<li><a href="{{ route('blogCategory.index') }}"><i class="icon-user-plus"></i> <span>Blog Category</span></a></li>
+								<li><a href=""><i class="icon-user-plus"></i> <span>Blog</span></a></li>
 
 							</ul>
 						</div>
@@ -370,6 +372,9 @@
 	<!-- /page container -->
 
 
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
     <!-- Core JS files -->
 	<script type="text/javascript" src="{{ asset('admin/assets/js/plugins/loaders/pace.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin/assets/js/core/libraries/jquery.min.js') }}"></script>
@@ -385,8 +390,5 @@
 	<script type="text/javascript" src="{{ asset('admin/assets/js/pages/datatables_basic.js') }}"></script>
 	<!-- /theme JS files -->
 
-    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
-    {!! Toastr::message() !!}
 </body>
 </html>

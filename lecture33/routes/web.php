@@ -31,11 +31,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\Admin\MasterController::class, 'dashboard']);
 // USER ROUTE
-Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index']);
-Route::get('users/create', [App\Http\Controllers\Admin\UserController::class, 'create']);
-Route::post('users/store', [App\Http\Controllers\Admin\UserController::class, 'store']);
+Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('usersIndex');
+Route::get('users/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('usersCreate');
+Route::post('users/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('usersStore');
+Route::get('users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('usersEdit');
+Route::put('users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('usersUpdate');
+Route::delete('users/destroy/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('usersDestroy');
 
-Route::get('users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit']);
-Route::put('users/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'update']);
 
-Route::delete('users/destroy/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy']);
+Route::resource('blogCategory', App\Http\Controllers\Admin\BlogCategoryController::class);
