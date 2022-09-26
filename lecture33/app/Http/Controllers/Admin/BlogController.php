@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\BlogCategory;
+use App\Models\Blog;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Http\Controllers\Controller;
+use App\Models\BlogCategory;
 use Illuminate\Support\Facades\Validator;
 
-class BlogCategoryController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +18,10 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
-        $data['blogCategories'] = BlogCategory::get();
-        // $data['blogCategoryInfo'] = BlogCategory::find($id);
-        return view('admin.blogCategory.listData', $data);
+        $data['blogs'] = Blog::join('blog_categories', 'blog_categories.id', '=', 'blogs.category_id')
+            ->select('blogs.*', 'blog_categories.name')
+            ->get();
+        return view('admin.blog.listData', $data);
     }
 
     /**
@@ -29,7 +31,8 @@ class BlogCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.blogCategory.create');
+        $data['blogCategories'] = BlogCategory::get();
+        return view('admin.blog.create', $data);
     }
 
     /**
@@ -41,22 +44,22 @@ class BlogCategoryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'  => 'required',
-            'valid' => 'required',
+            'category_id' => 'required',
+            'title'       => 'required',
+            'valid'       => 'required',
         ]);
 
         if ($validator->passes()) {
 
-            // $obj = new BlogCategory();
-            // $obj->name = $request->name;
-            // $obj->valid = $request->valid;
-            // $obj->save();
-
-            BlogCategory::create([
-                'name'     => $request->name,
-                'valid'    => $request->valid,
+            Blog::create([
+                'category_id' => $request->category_id,
+                'title'       => $request->title,
+                'sub_title'   => $request->sub_title,
+                'description' => $request->description,
+                'thumbnail'   => self::fileUploader($request->thumbnail, public_path('uploads/blogThumb')),
+                'valid'       => $request->valid,
             ]);
-            Toastr::success('Category created successfully', 'Success');
+            Toastr::success('Blog created successfully', 'Success');
         } else {
             $errMsgs = $validator->messages();
             foreach ($errMsgs->all() as $msg) {
@@ -86,8 +89,8 @@ class BlogCategoryController extends Controller
      */
     public function edit($id)
     {
-        $data['blogCategoryInfo'] = BlogCategory::find($id);
-        return view('admin.blogCategory.update', $data);
+        $data['blogCategoryInfo'] = Blog::find($id);
+        return view('admin.blog.update', $data);
     }
 
     /**
@@ -100,16 +103,21 @@ class BlogCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'  => 'required',
-            'valid' => 'required',
+            'category_id' => 'required',
+            'title'       => 'required',
+            'valid'       => 'required',
         ]);
 
         if ($validator->passes()) {
-            BlogCategory::find($id)->update([
-                'name'     => $request->name,
-                'valid'    => $request->valid,
+            Blog::find($id)->update([
+                'category_id' => $request->category_id,
+                'title'       => $request->title,
+                'sub_title'   => $request->sub_title,
+                'description' => $request->description,
+                'thumbnail'   => $request->thumbnail,
+                'valid'   => $request->valid,
             ]);
-            Toastr::success('Category Updated successfully', 'Success');
+            Toastr::success('Blog Updated successfully', 'Success');
         } else {
             $errMsgs = $validator->messages();
             foreach ($errMsgs->all() as $msg) {
@@ -127,8 +135,16 @@ class BlogCategoryController extends Controller
      */
     public function destroy($id)
     {
-        BlogCategory::find($id)->delete();
+        Blog::find($id)->delete();
         Toastr::success('Category Deleted successfully', 'Success');
         return redirect()->back();
+    }
+
+
+    public static function fileUploader($mainFile, $path)
+    {
+        $fileName = time().'.'.$mainFile->extension();
+        $mainFile->move($path, $fileName);
+        return $fileName;
     }
 }

@@ -342,10 +342,10 @@
 
 								<!-- Main -->
 								{{-- <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li> --}}
-								<li class="active"><a href="{{ url('/') }}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-								<li><a href="{{ url('users') }}"><i class="icon-user-plus"></i> <span>Users</span></a></li>
-								<li><a href="{{ route('blogCategory.index') }}"><i class="icon-user-plus"></i> <span>Blog Category</span></a></li>
-								<li><a href=""><i class="icon-user-plus"></i> <span>Blog</span></a></li>
+								<li class="{{ (request()->is('/')) ? 'active' : '' }}"><a href="{{ url('/') }}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+								<li class="{{ (request()->is('users*')) ? 'active' : '' }}"><a href="{{ url('users') }}"><i class="icon-user-plus"></i> <span>Users</span></a></li>
+								<li class="{{ (request()->is('blogCategory/*')) ? 'active' : '' }}"><a href="{{ route('blogCategory.index') }}"><i class="icon-user-plus"></i> <span>Blog Category</span></a></li>
+								<li class="{{ (request()->is('blog/*')) ? 'active' : '' }}"><a href="{{ route('blog.index') }}"><i class="icon-user-plus"></i> <span>Blog</span></a></li>
 
 							</ul>
 						</div>
@@ -379,8 +379,14 @@
 	<script type="text/javascript" src="{{ asset('admin/assets/js/plugins/loaders/pace.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin/assets/js/core/libraries/jquery.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin/assets/js/core/libraries/bootstrap.min.js') }}"></script>
+    {{-- bootbox modal --}}
+	<script type="text/javascript" src="{{ asset('admin/assets/bootbox/bootbox.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('admin/assets/bootbox/bootbox.locales.js') }}"></script>
+
 	<script type="text/javascript" src="{{ asset('admin/assets/js/plugins/loaders/blockui.min.js') }}"></script>
 	<!-- /core JS files -->
+
+
 
 	<!-- Theme JS files -->
 	<script type="text/javascript" src="{{ asset('admin/assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
@@ -390,5 +396,6 @@
 	<script type="text/javascript" src="{{ asset('admin/assets/js/pages/datatables_basic.js') }}"></script>
 	<!-- /theme JS files -->
 
+    @stack('javascript')
 </body>
 </html>
