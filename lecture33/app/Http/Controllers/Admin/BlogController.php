@@ -32,6 +32,7 @@ class BlogController extends Controller
     public function create()
     {
         $data['blogCategories'] = BlogCategory::get();
+        // return response()->json($data);
         return view('admin.blog.create', $data);
     }
 
@@ -89,7 +90,8 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        $data['blogCategoryInfo'] = Blog::find($id);
+        $data['blogInfo'] = Blog::find($id);
+        $data['blogCategories'] = BlogCategory::get();
         return view('admin.blog.update', $data);
     }
 
@@ -146,5 +148,11 @@ class BlogController extends Controller
         $fileName = time().'.'.$mainFile->extension();
         $mainFile->move($path, $fileName);
         return $fileName;
+    }
+
+    public function trashDataList()
+    {
+        $data['blogs'] = Blog::withTrashed()->get();
+        return view('admin.blog.listData', $data);
     }
 }

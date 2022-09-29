@@ -24,7 +24,10 @@
                 <h5 class="panel-title">Blog</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
-                        <li style="margin-right: 10px;"><a href="{{ route('blog.create') }}" class="btn btn-primary add-new open-modal">Add New</a></li>
+                        <li style="margin-right: 10px;">
+                            <a href="{{ route('blog.create') }}" class="btn btn-primary add-new open-modal" selector="blogCreate" modal-title="Blog Create" modal-type="Create">Add New</a>
+
+                        </li>
                         <li><a data-action="collapse"></a></li>
                         <li><a data-action="reload"></a></li>
                         <li><a data-action="close"></a></li>
@@ -33,6 +36,7 @@
             </div>
 
             <div class="panel-body">
+
                 <table class="table datatable-basic">
                     <thead>
                         <tr>
@@ -66,7 +70,8 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('blog.edit', $blog->id) }}"><i class="icon-pencil"></i></a>
+                                        <a href="{{ route('blog.edit', $blog->id) }}" class="open-modal" selector="blogUpdate" modal-title="Blog Update" modal-type="Update"><i class="icon-pencil"></i></a>
+                                        <a href="{{ route('blog.show', $blog->id) }}" class="open-modal" selector="blogShow" modal-title="Blog Details" modal-type="Show"><i class="icon-eye"></i></a>
 
                                         <form action="{{ route('blog.destroy', $blog->id) }}" method="POST">
                                                 @method('DELETE')
@@ -92,38 +97,3 @@
     </div>
     <!-- /content area -->
 @endsection
-
-@push('javascript')
-<script>
-    $(document).on("click", ".open-modal", function(e) {
-        e.preventDefault();
-
-        // $.ajax({
-
-        // });
-
-        bootbox.dialog({
-            title: 'A custom dialog with buttons and callbacks',
-            message: "<p>This dialog has buttons. Each button has it's own callback function.</p>",
-            size: 'large',
-            buttons: {
-                cancel: {
-                    label: "I'm a cancel button!",
-                    className: 'btn-danger',
-                    callback: function(){
-                        console.log('Custom cancel clicked');
-                    }
-                },
-                ok: {
-                    label: "I'm an OK button!",
-                    className: 'btn-info',
-                    callback: function(){
-                        console.log('Custom OK clicked');
-                    }
-                }
-            }
-        });
-
-    });
-</script>
-@endpush

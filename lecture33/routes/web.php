@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 // *****************************************
 
 
-Route::get('/', [App\Http\Controllers\Admin\MasterController::class, 'dashboard']);
+Route::get('dashboard/', [App\Http\Controllers\Admin\MasterController::class, 'dashboard']);
 // USER ROUTE
 Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('usersIndex');
 Route::get('users/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('usersCreate');
@@ -41,3 +41,4 @@ Route::delete('users/destroy/{id}', [App\Http\Controllers\Admin\UserController::
 
 Route::resource('blogCategory', App\Http\Controllers\Admin\BlogCategoryController::class);
 Route::resource('blog', App\Http\Controllers\Admin\BlogController::class);
+Route::get('blogTrashDataList', [App\Http\Controllers\Admin\BlogController::class, 'trashDataList'])->name('blogTrashDataList');
